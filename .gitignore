@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# Datos generados en tiempo de ejecución (avances guardados, fotos, historial).
+# Se regeneran solos al usar la app; no hace falta versionarlos.
+data/drafts/*.json
+data/drafts/fotos/*.jpg
+data/historial_visitas.xlsx
+!data/.gitkeep
+!data/drafts/fotos/.gitkeep
