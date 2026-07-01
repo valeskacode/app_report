@@ -1,0 +1,383 @@
+/* =====================================================================
+   assets/style.css
+   Diseño mobile-first para la app de Visita a Clientes — Caja Arequipa
+   Paleta: rojo institucional #C8102E · azul oscuro #1B3A5C
+   ===================================================================== */
+
+:root {
+  color-scheme: light only;
+  --rojo: #C8102E;
+  --rojo-oscuro: #a30d24;
+  --azul: #1B3A5C;
+  --fondo: #F4F5F7;
+  --verde: #16A34A;
+  --verde-bg: #E8F8EE;
+  --amarillo: #D97706;
+  --amarillo-bg: #FEF6E7;
+  --gris-borde: #E2E8F0;
+}
+
+/* ---- Forzar modo claro en TODO, incluso si el celular está en oscuro --- */
+html, body, .stApp {
+  background-color: var(--fondo) !important;
+  color: var(--azul) !important;
+}
+input, textarea, select,
+div[data-baseweb="input"] > div,
+div[data-baseweb="select"] > div,
+div[data-baseweb="textarea"],
+div[data-baseweb="base-input"] {
+  background-color: #ffffff !important;
+  color: var(--azul) !important;
+  border-color: var(--gris-borde) !important;
+}
+div[data-testid="stTextInput"] input,
+div[data-testid="stNumberInput"] input,
+div[data-testid="stDateInput"] input,
+div[data-testid="stTimeInput"] input,
+div[data-testid="stTextArea"] textarea {
+  background-color: #ffffff !important;
+  color: var(--azul) !important;
+  -webkit-text-fill-color: var(--azul) !important;
+}
+.stSelectbox div[data-baseweb="select"] * { color: var(--azul) !important; }
+[data-testid="stWidgetLabel"] p { color: var(--azul) !important; font-weight: 600; }
+.streamlit-expanderHeader { color: var(--azul) !important; }
+
+/* ---- Limitar ancho en PC para que se vea como "tarjeta de celular" ---- */
+.block-container {
+  max-width: 480px;
+  margin: 0 auto;
+  /* La barra superior de Streamlit (deploy/menú) es fija y no se puede
+     quitar del todo; le damos suficiente espacio arriba para que no
+     tape el header/título de la app. */
+  padding-top: 3.2rem !important;
+  padding-bottom: 6rem !important;  /* deja espacio para la barra inferior */
+}
+@media (min-width: 900px) {
+  .block-container { max-width: 520px; }
+}
+/* Achica un poco la barra superior nativa de Streamlit para que ocupe
+   menos espacio (no se puede ocultar por completo sin romper el menú
+   de "Deploy"/configuración, pero sí se puede reducir su alto). */
+header[data-testid="stHeader"] {
+  height: 2.4rem;
+  background: rgba(244,245,247,0.92) !important;
+  backdrop-filter: blur(4px);
+}
+div[data-testid="stToolbar"] { right: 0.3rem; }
+
+/* ---- Header superior tipo app móvil ---- */
+.app-header {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.9rem 0.2rem; margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--gris-borde);
+}
+.app-header .icon-box {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--rojo); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.app-header .titles h1 {
+  font-size: 1.05rem; margin: 0; color: var(--azul); font-weight: 700;
+}
+.app-header .titles p {
+  font-size: 0.8rem; margin: 0; color: #64748B;
+}
+
+/* ---- Tarjetas blancas ---- */
+.card {
+  background: #ffffff; padding: 1.1rem 1.2rem; border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06); margin-bottom: 0.9rem;
+  border: 1px solid var(--gris-borde);
+}
+.card h3 { margin-top: 0; }
+
+/* ---- Banner de cliente activo (verde, igual a mockup ficha) ---- */
+.banner-cliente {
+  background: var(--verde-bg); border: 1px solid #BBF0D2;
+  border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: 0.9rem;
+}
+.banner-cliente .nombre { font-size: 1.15rem; font-weight: 700; color: var(--azul); }
+.banner-cliente .dni { font-size: 0.85rem; color: #475569; }
+
+/* ---- Badges de estado ---- */
+.badge { display: inline-block; padding: 3px 11px; border-radius: 999px; font-size: 0.78rem; font-weight: 600; }
+.badge-ok   { background: var(--verde-bg); color: var(--verde); }
+.badge-warn { background: var(--amarillo-bg); color: var(--amarillo); }
+.badge-pend { background: #FCE8E6; color: var(--rojo); }
+
+/* ---- Paneles de criterio (riesgo) con borde de color ---- */
+.panel-riesgo-on {
+  background: #FEF2F2; border-left: 5px solid var(--rojo);
+  border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 0.6rem;
+}
+.panel-riesgo-off {
+  background: #F8FAFC; border-left: 5px solid var(--gris-borde);
+  border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 0.6rem;
+}
+
+/* ---- Botones ---- */
+div.stButton > button {
+  background-color: var(--rojo); color: white !important; border: none;
+  border-radius: 10px; font-weight: 700; padding: 0.6rem 1rem;
+}
+div.stButton > button:hover { background-color: var(--rojo-oscuro); color: white !important; }
+div.stButton > button:disabled { background-color: #D1D5DB; color: #6B7280 !important; }
+.stDownloadButton > button {
+  background-color: var(--azul) !important; color: white !important; border-radius: 10px; font-weight: 700;
+}
+
+/* ---- Stepper (pasos de la visita) ---- */
+.stepper { display: flex; justify-content: space-between; margin: 0.4rem 0 1rem 0; }
+.stepper .step { text-align: center; flex: 1; }
+.stepper .circle {
+  width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 4px auto;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700;
+  background: var(--gris-borde); color: #64748B;
+}
+.stepper .circle.activo { background: var(--azul); color: white; }
+.stepper .circle.hecho { background: var(--verde); color: white; }
+.stepper .label { font-size: 0.65rem; color: #64748B; }
+
+/* ---- Barra inferior de navegación (fija) ---- */
+.bottom-nav-spacer { height: 70px; }
+div[data-testid="stHorizontalBlock"].bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: white; border-top: 1px solid var(--gris-borde);
+  padding: 0.3rem 0.5rem; z-index: 999; max-width: 480px; margin: 0 auto;
+}
+
+/* ---- Métricas grandes ---- */
+[data-testid="stMetricValue"] { color: var(--azul); }
+
+/* ---- Contenedores nativos con borde (st.container(border=True)) ----
+   Les damos la misma apariencia de "tarjeta" que el resto del diseño. */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+  border-radius: 14px !important;
+  border-color: var(--gris-borde) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  margin-bottom: 0.7rem;
+}
+
+/* ---- Mapa pequeño ---- */
+iframe[title="st.iframe"] { border-radius: 10px; }
+
+/* ---- Menú superior por íconos (submenu de las vistas) ---- */
+.top-menu-spacer { height: 0.2rem; }
+div[data-testid="stHorizontalBlock"].top-menu div.stButton > button {
+  background-color: transparent !important; color: var(--azul) !important;
+  border: 1px solid var(--gris-borde); border-radius: 10px;
+  padding: 0.35rem 0.2rem; font-size: 0.95rem; font-weight: 600;
+}
+div[data-testid="stHorizontalBlock"].top-menu div.stButton > button:hover {
+  background-color: var(--verde-bg) !important;
+}
+
+/* ---- Información del crédito: tarjeta compacta y responsiva ----
+   En vez de st.metric (que no hace salto de línea y se corta en
+   pantallas chicas), usamos filas chip que envuelven el texto. */
+.info-credito { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.3rem 0; }
+.info-credito .chip {
+  flex: 1 1 130px; min-width: 110px;
+  background: #F8FAFC; border: 1px solid var(--gris-borde);
+  border-radius: 10px; padding: 0.45rem 0.6rem;
+}
+.info-credito .chip .lbl { font-size: 0.68rem; color: #64748B; font-weight: 600; }
+.info-credito .chip .val {
+  font-size: 0.85rem; color: var(--azul); font-weight: 700;
+  word-break: break-word; white-space: normal; line-height: 1.2;
+}
+
+/* ---- Botones Atrás / Siguiente al pie, en la misma línea, compactos ---- */
+.nav-pie div[data-testid="column"] { padding: 0 0.2rem; }
+.nav-pie div.stButton > button { padding: 0.5rem 0.4rem; font-size: 0.85rem; }
+
+/* =====================================================================
+   MEJORAS — Pantalla "Buscar Cliente" (Carga de base + Búsqueda)
+   Igualando el mockup: tarjeta de cliente encontrado, lista de
+   clientes similares, zona de carga de archivo, panel de estado del
+   sistema, barra inferior de navegación y botones de acción.
+   ===================================================================== */
+
+/* ---- Barra de usuario (compacta, arriba de "Carga de Base de Datos") --- */
+.usuario-bar-label {
+  font-size: 0.82rem; font-weight: 600; color: var(--azul);
+  display: flex; align-items: center; height: 100%;
+}
+
+/* ---- Zona de carga de archivo (estilo "nube punteada" del mockup) ---- */
+div[data-testid="stFileUploaderDropzone"],
+div[data-testid="stFileUploadDropzone"] {
+  background: #FAFBFC !important;
+  border: 1.5px dashed #CBD5E1 !important;
+  border-radius: 12px !important;
+}
+div[data-testid="stFileUploaderDropzone"] button,
+div[data-testid="stFileUploadDropzone"] button {
+  background-color: #ffffff !important; color: var(--azul) !important;
+  border: 1px solid var(--gris-borde) !important;
+}
+
+/* ---- Panel verde "Archivo procesado correctamente" ---- */
+.processed-panel {
+  background: var(--verde-bg); border: 1px solid #BBF0D2;
+  border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: 0.7rem;
+  text-align: left;
+}
+.processed-head { color: var(--verde); font-weight: 700; margin-bottom: 0.6rem; }
+.processed-file { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+.processed-file .file-icon { font-size: 1.6rem; }
+.processed-file .file-name { font-weight: 700; color: var(--azul); font-size: 0.9rem; }
+.processed-file .file-meta { font-size: 0.75rem; color: #64748B; }
+.processed-count { font-size: 2.2rem; font-weight: 800; color: var(--verde); text-align: center; line-height: 1.1; }
+.processed-count-label { text-align: center; font-size: 0.85rem; color: #475569; margin-bottom: 0.2rem; }
+
+/* Botones "Vista previa de datos" (verde, contorno) y "Limpiar base"
+   (rojo claro, contorno) — usan el truco de "marcador + hermano" para
+   que cada botón de Streamlit reciba un estilo distinto al genérico
+   rojo de toda la app (ver div.stButton > button arriba en este mismo
+   archivo). El marcador es un <div> invisible que se inyecta justo
+   antes del botón correspondiente desde app.py. */
+.marker-vistaprevia + div[data-testid="stButton"] button {
+  background-color: #ffffff !important; color: var(--verde) !important;
+  border: 1.5px solid var(--verde) !important; text-align: left;
+}
+.marker-vistaprevia + div[data-testid="stButton"] button:hover {
+  background-color: var(--verde-bg) !important;
+}
+.marker-limpiar + div[data-testid="stButton"] button {
+  background-color: #FEF2F2 !important; color: var(--rojo) !important;
+  border: 1.5px solid #FCD3D3 !important; text-align: left;
+}
+.marker-limpiar + div[data-testid="stButton"] button:hover {
+  background-color: #FCE3E3 !important;
+}
+
+/* ---- Panel "Estado del Sistema" ---- */
+.estado-sistema-dot { font-size: 0.7rem; }
+
+/* ---- Barra de búsqueda + botón "Buscar" ---- */
+.marker-buscar + div[data-testid="stButton"] button {
+  background-color: #ffffff !important; color: var(--rojo) !important;
+  border: 1.5px solid var(--rojo) !important; font-size: 0.78rem;
+}
+.marker-buscar + div[data-testid="stButton"] button:hover {
+  background-color: #FEF2F2 !important;
+}
+
+/* ---- Indicador "Buscando coincidencias en tiempo real..." ---- */
+.live-indicator {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.82rem; color: var(--verde); font-weight: 600;
+  margin: 0.3rem 0 0.7rem 0.1rem;
+}
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--verde);
+  animation: pulso-vivo 1.4s ease-in-out infinite;
+}
+@keyframes pulso-vivo {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* ---- Tarjeta "Cliente encontrado" ---- */
+.cliente-card {
+  background: #ffffff; border: 1px solid var(--gris-borde);
+  border-radius: 14px; padding: 1.1rem; margin-bottom: 0.6rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.cliente-card-top { display: flex; align-items: flex-start; gap: 0.7rem; margin-bottom: 0.9rem; }
+.avatar-circle {
+  width: 46px; height: 46px; min-width: 46px; border-radius: 50%;
+  background: var(--verde-bg); color: var(--verde);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1rem; border: 1px solid #BBF0D2;
+}
+.avatar-chica { width: 36px; height: 36px; min-width: 36px; font-size: 0.85rem; }
+.cliente-nombre-wrap { flex: 1; }
+.cliente-nombre { font-weight: 700; font-size: 1.05rem; color: var(--azul); line-height: 1.25; }
+.badge-encontrado {
+  background: var(--verde-bg); color: var(--verde); font-weight: 700;
+  font-size: 0.7rem; padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+}
+.cliente-grid { display: flex; flex-wrap: wrap; gap: 1rem; }
+.cliente-col { flex: 1 1 160px; min-width: 150px; }
+.dato-fila { font-size: 0.82rem; color: #334155; margin-bottom: 0.55rem; word-break: break-word; }
+.dato-etiqueta { font-size: 0.68rem; color: #64748B; font-weight: 600; margin-top: 0.5rem; }
+.dato-valor { font-size: 0.92rem; color: var(--azul); font-weight: 700; }
+.valor-alerta { color: var(--rojo) !important; }
+.valor-ok { color: var(--verde) !important; }
+.chip-calif {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 700; margin-top: 2px;
+}
+.chip-calif-ok   { background: var(--verde-bg); color: var(--verde); }
+.chip-calif-warn { background: var(--amarillo-bg); color: var(--amarillo); }
+.chip-calif-bad  { background: #FCE8E6; color: var(--rojo); }
+.chip-calif-na   { background: #F1F5F9; color: #64748B; }
+
+/* Botón "Confirmar este cliente": el rojo sólido por defecto ya
+   coincide con el mockup, solo lo hacemos un poco más alto. */
+.marker-confirmar + div[data-testid="stButton"] button { padding: 0.7rem 1rem; }
+
+/* ---- Lista de "Clientes similares" ---- */
+.similar-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.6rem 0.2rem; border-bottom: 1px solid var(--gris-borde);
+}
+.similar-info { flex: 1; min-width: 0; }
+.similar-nombre { font-weight: 700; color: var(--azul); font-size: 0.88rem; }
+.similar-dni { font-size: 0.75rem; color: #64748B; }
+.similar-saldo { font-size: 0.85rem; font-weight: 700; color: var(--azul); white-space: nowrap; }
+.marker-abrir-similar + div[data-testid="stButton"] button {
+  background-color: #F8FAFC !important; color: var(--azul) !important;
+  border: 1px solid var(--gris-borde) !important; font-size: 0.78rem;
+  padding: 0.35rem 0.6rem; margin: -0.3rem 0 0.5rem 0;
+}
+
+/* ---- Caja "Consejo" ---- */
+.tip-box {
+  background: #FEF2F2; border-left: 4px solid var(--rojo);
+  border-radius: 10px; padding: 0.8rem 1rem; font-size: 0.82rem;
+  color: #475569; margin: 0.8rem 0;
+}
+.tip-box b { color: var(--rojo); }
+
+/* ---- Barra inferior de navegación fija (reemplaza al menú superior) ---
+   El <div class="marker-bottomnav"> se inyecta justo antes de los
+   columns() de la navegación, y aquí lo usamos como referencia para
+   convertir esa fila de columnas en una barra FIJA abajo, con look de
+   íconos (no de botones rojos), igual que el mockup. El estado activo
+   usa el atributo nativo de Streamlit button[kind="primary"] (se activa
+   con type="primary" en el botón correspondiente desde app.py). */
+.marker-bottomnav + div[data-testid="stHorizontalBlock"] {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #ffffff; border-top: 1px solid var(--gris-borde);
+  padding: 0.45rem 0.4rem 0.55rem; z-index: 999;
+  max-width: 480px; margin: 0 auto;
+}
+@media (min-width: 900px) {
+  .marker-bottomnav + div[data-testid="stHorizontalBlock"] { max-width: 520px; }
+}
+.marker-bottomnav + div[data-testid="stHorizontalBlock"] button[kind="secondary"] {
+  background-color: transparent !important; color: #64748B !important;
+  border: none !important; box-shadow: none !important;
+  font-weight: 600; font-size: 0.74rem; padding: 0.25rem 0.1rem;
+}
+.marker-bottomnav + div[data-testid="stHorizontalBlock"] button[kind="primary"] {
+  background-color: transparent !important; color: var(--rojo) !important;
+  border: none !important; box-shadow: none !important;
+  font-weight: 700; font-size: 0.74rem; padding: 0.25rem 0.1rem;
+}
+
+/* ---- Ícono opcional a la derecha del header (ej. "❓" del mockup) ---- */
+.app-header .titles { flex: 1; }
+.app-header .icon-box-derecha {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--gris-borde); color: #64748B;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
